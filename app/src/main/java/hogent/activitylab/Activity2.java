@@ -9,59 +9,66 @@ import android.widget.TextView;
 
 public class Activity2 extends Activity {
 
-
-
     // String voor LogCat documentatie
     private final static String TAG = "Activity_2";
 
-
-
     /**
-     * TODO: Creëer counter variabelen voor onCreate(), onRestart(), onStart() and
+     * Creëer counter variabelen voor onCreate(), onRestart(), onStart() and
      * onResume() etc.
      * Je moet deze variabelen incremeteren elke keer de overeenkomstige methode opgeroepen wordt
-
      */
+    private int mCreate = 0;
+    private int mStart = 0;
+    private int mResume = 0;
+    private int mRestart = 0;
 
-
-    /**
-     * TODO: Creëer variabelen voor de verschillende textviews
-     */
-
-
-    // TODO: Creëer variabelen voor de verschillende textviews
+    // Creëer variabelen voor de verschillende textviews
+    private TextView mTvCreate;
+    private TextView mTvStart;
+    private TextView mTvResume;
+    private TextView mTvRestart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_activity2);
 
-        // TODO: initialiseer de correcte TextViews
+        // Initialiseer de correcte TextViews
         // Hint: findViewById()
         // textView1 = (TextView) findViewById(R.id.textView1);
+        mTvCreate = (TextView) findViewById(R.id.create);
+        mTvStart = (TextView) findViewById(R.id.start);
+        mTvResume = (TextView) findViewById(R.id.resume);
+        mTvRestart = (TextView) findViewById(R.id.restart);
 
+        // Voeg een Onclicklistener toe aan de button om de activity te stoppen
+        Button button = (Button)findViewById(R.id.bClose);
 
-        //TODO: voeg een Onclicklistener toe aan de button om de activity te stoppen
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Methode om de activity te stoppen
+                finish();
+            }
+        });
 
-
-
-
-        // TODO: Check voor gesavede state
-        if () {
-
-            // TODO: Herstel waarde van de counters van de  saved state
-
+        // Check voor gesavede state
+        if (savedInstanceState != null) {
+            // Herstel waarde van de counters van de  saved state
+            mCreate = savedInstanceState.getInt("createCount");
+            mStart = savedInstanceState.getInt("startCount");
+            mResume = savedInstanceState.getInt("resumeCount");
+            mRestart = savedInstanceState.getInt("restartCount");
         }
 
-        // TODO: LogCat message
+        // LogCat message
+        Log.i(TAG, "onCreate() has been called");
 
+        // Update voor de variabelen
+        mCreate++;
 
-        // TODO:Update voor de variabelen
-
-
-        // TODO: Update de user interface via de displayCounts() methode
-
-
+        // Update de user interface via de displayCounts() methode
+        displayCounts();
     }
 
     // Lifecycle callback methods overrides
@@ -70,94 +77,101 @@ public class Activity2 extends Activity {
     public void onStart() {
         super.onStart();
 
-        // TODO: Emit LogCat message
-        Log.i(TAG, "Start has been called");
+        // LogCat message
+        Log.i(TAG, "onStart() has been called");
 
-        // TODO:
         // Update voor de variabelen
-        // Update de user interface via de displayCounts() methode
         mStart++;
-        displayCounts();
 
+        // Update de user interface via de displayCounts() methode
+        displayCounts();
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        // TODO: LogCat message
+        // LogCat message
+        Log.i(TAG, "onResume() has been called");
 
-        // TODO: Update de  count variable
+        // Update voor de variabelen
+        mResume++;
 
-        // TODO: Update the user interfac
-
-
+        // Update de user interface via de displayCounts() methode
+        displayCounts();
     }
 
     @Override
     public void onPause() {
         super.onPause();
 
-        // TODO: LogCat message
+        // LogCat message
+        Log.i(TAG, "onPause() has been called");
 
-        // TODO: Update de  count variable
+        // TODO: Update voor de variabelen
+        //???
 
-        // TODO: Update the user interfac
-
-
+        // Update de user interface via de displayCounts() methode
+        displayCounts();
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        // TODO: LogCat message
+        // LogCat message
+        Log.i(TAG, "onStop() has been called");
 
-        // TODO: Update de  count variable
+        // TODO: Update voor de variabelen
+        //???
 
-        // TODO: Update the user interfac
-
-
+        // Update de user interface via de displayCounts() methode
+        displayCounts();
     }
 
     @Override
     public void onRestart() {
         super.onRestart();
 
-        // TODO: LogCat message
+        // LogCat message
+        Log.i(TAG, "onRestart() has been called");
 
-        // TODO: Update de  count variable
+        // Update voor de variabelen
+        mRestart++;
 
-        // TODO: Update the user interfac
-
+        // Update de user interface via de displayCounts() methode
+        displayCounts();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        // TODO: LogCat message
+        // LogCat message
+        Log.i(TAG, "onDestroy() has been called");
 
-        // TODO: Update de  count variable
+        // TODO: Update voor de variabelen
+        //???
 
-        // TODO: Update the user interfac
+        // Update de user interface via de displayCounts() methode
+        displayCounts();
     }
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
-        // TODO:  Save de state  met key-value pairs in de Bundle
-
-
-
-
-
+        // Save de state  met key-value pairs in de Bundle
+        savedInstanceState.putInt("createCount", mCreate);
+        savedInstanceState.putInt("startCount", mStart);
+        savedInstanceState.putInt("resumeCount", mResume);
+        savedInstanceState.putInt("restartCount", mRestart);
     }
 
     // Updates the displayed counters
     public void displayCounts() {
-
-        // TODO: zet de countervariabelen correct in de activity
-
+        // Zet de countervariabelen correct in de activity
+        mTvCreate.setText("onCreate() calls: " + mCreate);
+        mTvStart.setText("onStart() calls: " + mStart);
+        mTvResume.setText("onResume() calls: " + mResume);
+        mTvRestart.setText("onRestart() calls: " + mRestart);
     }
 }
